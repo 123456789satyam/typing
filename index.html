@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Master</title>
+  </head>
+  <style>
+    body {
+      background: rgb(231, 98, 192);
+      background: radial-gradient(
+        circle,
+        rgba(231, 98, 192, 1) 0%,
+        rgba(144, 49, 226, 1) 100%,
+        rgba(61, 148, 10, 1) 100%
+      );
+      font-size: 18px;
+      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    }
+    .mainDiv {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin: auto;
+      height: auto;
+      width: 50%;
+      margin-top: 3rem;
+      padding: 2% 7%;
+
+      background: rgb(187, 23, 156);
+      background: radial-gradient(
+        circle,
+        rgba(187, 23, 156, 1) 0%,
+        rgba(49, 157, 226, 1) 100%,
+        rgba(61, 148, 10, 1) 100%
+      );
+    }
+    button {
+      border: 2px solid black;
+      border-radius: 9px;
+      background-color: black;
+      color: white;
+      /* display: inline-flex */
+      padding: 8px;
+      font-size: larger;
+      margin: 2% 40%;
+    }
+    #mywords {
+      border: 2px solid black;
+      border-radius: 9px;
+      padding: 6px;
+      font-size: 25px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    h1 {
+      font-weight: 500;
+      font-size: 60px;
+      font-family: serif;
+    }
+    h2 {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-weight: 400;
+    }
+    @media only screen and (max-width: 600px) {
+      body {
+        background: rgb(187, 23, 156);
+        background: radial-gradient(
+          circle,
+          rgba(187, 23, 156, 1) 0%,
+          rgba(49, 157, 226, 1) 100%,
+          rgba(61, 148, 10, 1) 100%
+        );
+        font-size: 13px;
+      }
+      .mainDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid black;
+        border-radius: 10px;
+        margin: 0px;
+        height: 90%;
+        width: 85%;
+        margin-top: 2rem;
+        background: rgb(231, 98, 192);
+        background: radial-gradient(
+          circle,
+          rgba(231, 98, 192, 1) 0%,
+          rgba(144, 49, 226, 1) 100%,
+          rgba(61, 148, 10, 1) 100%
+        );
+      }
+      button {
+        border: 2px solid black;
+        border-radius: 9px;
+        background-color: black;
+        color: white;
+        padding: 8px;
+        font-size: larger;
+        margin: 5% 40%;
+      }
+      #mywords {
+        border: 2px solid black;
+        border-radius: 9px;
+        padding: 6px;
+        font-size: 15px;
+        height: 102px;
+        width: 100%;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      h1 {
+        font-weight: 500;
+        font-size: 45px;
+        font-family: serif;
+      }
+      h2 {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: 400;
+      }
+    }
+  </style>
+  <body>
+    <div class="mainDiv">
+      <div class="centerDiv">
+        <h1>Welcome To Typing Speed Test</h1>
+        <h2 id="msg"></h2>
+        <textarea
+          name="text"
+          id="mywords"
+          cols="50"
+          rows="5"
+          placeholder="Start From Here"
+        ></textarea>
+        <button id="btn" class="mainbtn">Start</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    const setOfWords = [
+      "my name is saytam pandey and i am a computer science student computer science is a very great plateform to explore the future in a second and see the glory of technology and see the advanture of the value and variation of technology",
+      "this is a simple paragraph that is meant to be nice and easy to type which is why there will be mommas no periods or any capital letters so i guess this means that it cannot really be considered a paragraph but just a series of",
+      "on sentences this should help you get faster at typing as im trying not to use too many difficult words in it although i think that i might start making it hard by including some more difficult letters am typing pretty quickly so",
+      "forgive me for any mistakes i think that i will not just tell you a story about the time i went to the zoo and found a monkey and a fox playing together they were so cute and i think that they were not supposed to be in the same ",
+      "to find out how fast you type just start typing in the blank textbox on the right of the test prompt you will see your progress including errors on the left side as you type is the main issue related to that it conclude it main",
+      "you can fix errors as you go or correct them at the end with the help of the spell checkek if you need to restart the test delete the text in the text box interactive feedback shows you your current wpm and accuracy as proper way",
+      "if order to complete the test and share your results you need to get accuracy you can review your progress for this session with the feedback chart just hover over a dot to see what your average speed and accruacy are for that key",
+    ];
+
+    // console.log(setOfWords);
+
+    const msg = document.querySelector("#msg");
+    const typeWord = document.querySelector("#mywords");
+    const btn = document.querySelector("#btn");
+    let startTime, endTime;
+
+    const playGame = () => {
+      let randomNumber = Math.floor(Math.random() * setOfWords.length);
+      msg.innerText = setOfWords[randomNumber];
+      //   typeWord.placeholder = setOfWords[randomNumber];
+      let date = new Date();
+      startTime = date.getTime();
+      btn.innerText = "Done";
+    };
+
+    const endPlay = () => {
+      let date = new Date();
+      endTime = date.getTime();
+      let totalTime = (endTime - startTime) / 1000;
+      console.log(totalTime);
+
+      let totalStr = typeWord.value;
+      console.log(totalStr);
+      let wordCount = wordCounter(totalStr);
+
+      let speed = Math.floor((wordCount / totalTime) * 60);
+      if (totalStr === "") {
+        speed = 0;
+      }
+      let finalMsg = "Speed(wpm) = " + speed + " , ";
+
+      finalMsg += compareWords(msg.innerText, totalStr);
+
+      msg.innerText = finalMsg;
+
+      typeWord.value = "";
+    };
+
+    const compareWords = (a, b) => {
+      let w1 = a.split(" ");
+      let w2 = b.split(" ");
+      let cnt = 0;
+
+      w1.forEach(function (item, index) {
+        if (item == w2[index]) {
+          cnt++;
+        }
+      });
+
+      let errorWords = w1.length - cnt;
+      return (
+        " Correct = " +
+        cnt +
+        " , Total = " +
+        w1.length +
+        " , Error = " +
+        errorWords +
+        " , Accuracy = " +
+        Math.floor((cnt / w1.length) * 100) +
+        "%"
+      );
+    };
+
+    const wordCounter = (s) => {
+      let response = s.split(" ").length;
+      console.log(response);
+      return response;
+    };
+
+    btn.addEventListener("click", () => {
+      if (btn.innerText == "Start") {
+        typeWord.disabled = false;
+        playGame();
+      } else if (btn.innerText == "Done") {
+        typeWord.disabled = true;
+        btn.innerText = "Start";
+        endPlay();
+      }
+    });
+  </script>
+</html>
